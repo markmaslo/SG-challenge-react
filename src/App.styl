@@ -1,0 +1,353 @@
+red = #DD4A45
+gradient = linear-gradient(to bottom, #4986af 0%,#6bc6e2 100%)
+
+body
+    font-family "Helvetica Neue", Helvetica, Arial, sans-serif
+    font-weight 300
+* {
+    box-sizing border-box
+}
+
+.Spinner-img
+    transform rotate(0deg)
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes breathe {
+    0% {
+        transform: scale(1.0)
+    }
+    50% {
+        transform: scale(1.2)
+    }
+    100% {
+        transform: scale(1.0)
+    }
+}
+
+@keyframes wiggle {
+    0% {
+        transform: rotate(0deg)
+    }
+    15% {
+        transform: rotate(-70deg)
+    }
+    20% {
+        transform: rotate(-20deg)
+    }
+    35% {
+        transform: rotate(-50deg)
+    }
+    40% {
+        transform: rotate(-30deg)
+    }
+    55% {
+        transform: rotate(-50deg)
+    }
+    60% {
+        transform: rotate(-30deg)
+    }
+    70% {
+        transform: rotate(-50deg)
+    }
+    75% {
+        transform: rotate(-30deg)
+    }
+    85% {
+        transform: rotate(-40deg)
+    }
+    95% {
+        transform: rotate(20deg)
+    }
+    97% {
+        transform: rotate(-30deg)
+    }
+    98% {
+        transform: rotate(15deg)
+    }
+    99% {
+        transform: rotate(-15deg)
+    }
+    100% {
+        transform: rotate(0deg)
+    }
+}
+
+
+.centered
+    position absolute
+    transform translate(-50%,-50%)
+    top 50%
+    left 50%
+.landing-container
+    position absolute
+    left 0
+    top 0
+    width 100%
+    height 100%
+    background gradient
+    .buttons
+        .spin-and-win
+        .list-gifts
+            display block
+            width 170px
+            background-color rgba(107,198,226,0.2)
+            border 0
+            padding 10px 20px
+            border-radius 3px
+            cursor pointer
+            &:active
+                background-color rgba(107,198,226,0.35)
+            .pre
+                position relative
+                display inline-block
+                vertical-align middle
+                margin-right 1.5em
+                img
+                    animation spin infinite 10s linear
+                    height 30px
+                .spins
+                    display block
+                    position absolute
+                    right -10px
+                    top -10px
+                    border-radius 20px
+                    width 20px
+                    height 20px
+                    line-height 20px
+                    background-color red
+                    color #fff
+                    font-size 12px
+            .title
+                display inline-block
+                vertical-align middle
+                font-size 14px
+                font-weight bold
+                color #fff
+        .spin-and-win
+            margin-bottom 20px
+.gifts-container
+.spinner-container
+    position  fixed
+    left 0
+    top 0
+    width 100%
+    height 100%
+    transform translateY(100%)
+    transition transform 0.25s ease-out 0s
+    background gradient
+    &.show-entered
+        transform translateY(0%)
+.spinner-container
+    .spinner-control
+        width 277px
+        height 277px
+        &:before
+            position absolute
+            left 15px
+            right 15px
+            background-image radial-gradient(50% 50%, #265E87 0%, #174D77 100%)
+            top 15px
+            bottom 15px
+            content ''
+            border-radius 100%
+            display block
+            z-index 1
+        img
+            width 100%
+            height auto
+            display block
+        .spinner-outer
+            position absolute
+            left 0
+            top 0
+            z-index 4
+            pointer-events none
+            width 100%
+            height 100%
+            .spinner-light
+                animation spin infinite 1s linear
+                position absolute
+                left 0
+                top 0
+                transition opacity 0.5s ease 0s
+                &.double
+                &.full
+                    opacity 0
+        .spinner-action
+            width 30%
+            height 30%
+            display inline-block
+            vertical-align middle
+            padding 0
+            border 0
+            background-image radial-gradient(farthest-corner at 50% 30%, #37AFDE 0%, #1283BC 100%)
+            border-radius 120px
+            z-index 3
+            transition all 0.25s ease 0s
+            position absolute
+            transform translate(-50%,-50%)
+            top 50%
+            left 50%
+            cursor pointer
+            outline-color transparent
+            outline-style none
+            .spinner-action-label
+                margin 0 auto
+                width 50%
+                height auto
+                animation breathe infinite 2s ease-out
+                position relative
+                display inline-block
+                vertical-align middle
+            &:active
+                background-image radial-gradient(50% 50%, #19577B 0%, #0F4468 100%)
+                .spinner-action-label
+                    animation none
+                    transform scale(0.9)
+        .spinner-body
+            padding 11%
+            transition all 0.5s ease-in-out 0.25s
+            opacity 0
+            transform rotate(-15deg)
+            position relative
+            z-index 2
+            .spinner-image
+                transform rotate(0deg)
+        .spinner-arrow
+            width 22px
+            position absolute
+            left 50%
+            margin-left -11px
+            top 5px
+            z-index 3
+        &.show-entered
+            .spinner-body
+                transform rotate(0deg)
+                opacity 1
+        &.spinning
+            .spinner-outer
+                .spinner-light
+                    &.single
+                        opacity 0
+                    &.double
+                        opacity 1
+                        animation-duration 1s
+            .spinner-arrow
+                animation wiggle infinite 5s ease-in
+                animation-iteration-count 1
+            .spinner-action
+                background-image radial-gradient(50% 50%, #2375AE 0%, #1766A1 100%)
+                .spinner-action-label
+                    animation none
+                    transform scale(1.0)
+        &.has-results
+            .spinner-outer
+                .spinner-light
+                    &.single
+                        opacity 0
+                    &.full
+                        opacity 1
+                        animation none
+            .spinner-action
+                .spinner-action-label
+                    animation none
+    .results-container
+        z-index 2
+        font-size 60px
+        position  absolute
+        left 0
+        top 0
+        width 100%
+        height 100%
+        background rgba(0,0,0,0.75)
+        transform translateY(100%)
+        transition transform 0.25s ease-in 0s
+        &.show-entered
+            transform translateY(0%)
+        .results
+            font-weight bold
+            color #fff
+.gifts-container
+    padding 30px 50px
+    overflow-y scroll
+    &:before
+        transition opacity 1s ease-in 3s
+        content "If you see this, try --disable-web-security for your browser"
+        opacity 0
+        font-size 12px
+        position absolute
+        left 50%
+        top 50%
+        transform translate(-50%,-50%)
+        color #fff
+        margin-top 30px
+    &.loading
+        &:after
+            content 'Loading...'
+            font-size 20px
+            position absolute
+            left 50%
+            top 50%
+            transform translate(-50%,-50%)
+            color #fff
+        &:before
+            opacity 1
+    .category-card
+        border-radius 5px
+        margin-bottom 30px
+        width 500px
+        overflow hidden
+        .category-header
+            padding 200px 15px 15px
+            background-size cover
+            background-color #222
+            background-position center center
+            .category-title
+                margin 0
+                color #fff
+                font-weight 300
+                font-size 15px
+        .gifts-list
+            padding 15px 15px 5px
+            background #eee
+            font-size 10px
+            color #666
+            .gifts-row
+                margin-left -5px
+                margin-right -5px
+                &:after
+                    clear both
+                    display table
+                    content ''
+                .gifts-column
+                    width 25%
+                    padding-left 5px
+                    padding-right 5px
+                    float left
+            .gifts-item
+                margin-bottom 10px
+                background #FFFFFF
+                box-shadow 0 1px 2px rgba(0,0,0,0.1)
+                border-radius 3px
+                overflow hidden
+                .gift-image
+                    width 100%
+                    margin-bottom 10px
+                    padding-bottom 100%
+                    background-size cover
+                .gift-text
+                    text-align center
+                    padding-bottom 10px
+                    .gift-price
+                        display inline-block
+                        padding 5px 10px
+                        border 1px solid #eee
+                        font-size 11px

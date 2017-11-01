@@ -1,0 +1,590 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+}
+* {
+  box-sizing: border-box;
+}
+.Spinner-img {
+  transform: rotate(0deg);
+}
+.centered {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+.landing-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #4986af 0%, #6bc6e2 100%);
+}
+.landing-container .buttons .spin-and-win,
+.landing-container .buttons .list-gifts {
+  display: block;
+  width: 170px;
+  background-color: rgba(107,198,226,0.2);
+  border: 0;
+  padding: 10px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.landing-container .buttons .spin-and-win:active,
+.landing-container .buttons .list-gifts:active {
+  background-color: rgba(107,198,226,0.35);
+}
+.landing-container .buttons .spin-and-win .pre,
+.landing-container .buttons .list-gifts .pre {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 1.5em;
+}
+.landing-container .buttons .spin-and-win .pre img,
+.landing-container .buttons .list-gifts .pre img {
+  animation: spin infinite 10s linear;
+  height: 30px;
+}
+.landing-container .buttons .spin-and-win .pre .spins,
+.landing-container .buttons .list-gifts .pre .spins {
+  display: block;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  background-color: #dd4a45;
+  color: #fff;
+  font-size: 12px;
+}
+.landing-container .buttons .spin-and-win .title,
+.landing-container .buttons .list-gifts .title {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+.landing-container .buttons .spin-and-win {
+  margin-bottom: 20px;
+}
+.gifts-container,
+.spinner-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(100%);
+  transition: transform 0.25s ease-out 0s;
+  background: linear-gradient(to bottom, #4986af 0%, #6bc6e2 100%);
+}
+.gifts-container.show-entered,
+.spinner-container.show-entered {
+  transform: translateY(0%);
+}
+.spinner-container .spinner-control {
+  width: 277px;
+  height: 277px;
+}
+.spinner-container .spinner-control:before {
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  background-image: radial-gradient(50% 50%, #265e87 0%, #174d77 100%);
+  top: 15px;
+  bottom: 15px;
+  content: '';
+  border-radius: 100%;
+  display: block;
+  z-index: 1;
+}
+.spinner-container .spinner-control img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.spinner-container .spinner-control .spinner-outer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 4;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+.spinner-container .spinner-control .spinner-outer .spinner-light {
+  animation: spin infinite 1s linear;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: opacity 0.5s ease 0s;
+}
+.spinner-container .spinner-control .spinner-outer .spinner-light.double,
+.spinner-container .spinner-control .spinner-outer .spinner-light.full {
+  opacity: 0;
+}
+.spinner-container .spinner-control .spinner-action {
+  width: 30%;
+  height: 30%;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0;
+  border: 0;
+  background-image: radial-gradient(farthest-corner at 50% 30%, #37afde 0%, #1283bc 100%);
+  border-radius: 120px;
+  z-index: 3;
+  transition: all 0.25s ease 0s;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  cursor: pointer;
+  outline-color: transparent;
+  outline-style: none;
+}
+.spinner-container .spinner-control .spinner-action .spinner-action-label {
+  margin: 0 auto;
+  width: 50%;
+  height: auto;
+  animation: breathe infinite 2s ease-out;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+.spinner-container .spinner-control .spinner-action:active {
+  background-image: radial-gradient(50% 50%, #19577b 0%, #0f4468 100%);
+}
+.spinner-container .spinner-control .spinner-action:active .spinner-action-label {
+  animation: none;
+  transform: scale(0.9);
+}
+.spinner-container .spinner-control .spinner-body {
+  padding: 11%;
+  transition: all 0.5s ease-in-out 0.25s;
+  opacity: 0;
+  transform: rotate(-15deg);
+  position: relative;
+  z-index: 2;
+}
+.spinner-container .spinner-control .spinner-body .spinner-image {
+  transform: rotate(0deg);
+}
+.spinner-container .spinner-control .spinner-arrow {
+  width: 22px;
+  position: absolute;
+  left: 50%;
+  margin-left: -11px;
+  top: 5px;
+  z-index: 3;
+}
+.spinner-container .spinner-control.show-entered .spinner-body {
+  transform: rotate(0deg);
+  opacity: 1;
+}
+.spinner-container .spinner-control.spinning .spinner-outer .spinner-light.single {
+  opacity: 0;
+}
+.spinner-container .spinner-control.spinning .spinner-outer .spinner-light.double {
+  opacity: 1;
+  animation-duration: 1s;
+}
+.spinner-container .spinner-control.spinning .spinner-arrow {
+  animation: wiggle infinite 5s ease-in;
+  animation-iteration-count: 1;
+}
+.spinner-container .spinner-control.spinning .spinner-action {
+  background-image: radial-gradient(50% 50%, #2375ae 0%, #1766a1 100%);
+}
+.spinner-container .spinner-control.spinning .spinner-action .spinner-action-label {
+  animation: none;
+  transform: scale(1);
+}
+.spinner-container .spinner-control.has-results .spinner-outer .spinner-light.single {
+  opacity: 0;
+}
+.spinner-container .spinner-control.has-results .spinner-outer .spinner-light.full {
+  opacity: 1;
+  animation: none;
+}
+.spinner-container .spinner-control.has-results .spinner-action .spinner-action-label {
+  animation: none;
+}
+.spinner-container .results-container {
+  z-index: 2;
+  font-size: 60px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.75);
+  transform: translateY(100%);
+  transition: transform 0.25s ease-in 0s;
+}
+.spinner-container .results-container.show-entered {
+  transform: translateY(0%);
+}
+.spinner-container .results-container .results {
+  font-weight: bold;
+  color: #fff;
+}
+.gifts-container {
+  padding: 30px 50px;
+  overflow-y: scroll;
+}
+.gifts-container:before {
+  transition: opacity 1s ease-in 3s;
+  content: "If you see this, try --disable-web-security for your browser";
+  opacity: 0;
+  font-size: 12px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  margin-top: 30px;
+}
+.gifts-container.loading:after {
+  content: 'Loading...';
+  font-size: 20px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+.gifts-container.loading:before {
+  opacity: 1;
+}
+.gifts-container .category-card {
+  border-radius: 5px;
+  margin-bottom: 30px;
+  width: 500px;
+  overflow: hidden;
+}
+.gifts-container .category-card .category-header {
+  padding: 200px 15px 15px;
+  background-size: cover;
+  background-color: #222;
+  background-position: center center;
+}
+.gifts-container .category-card .category-header .category-title {
+  margin: 0;
+  color: #fff;
+  font-weight: 300;
+  font-size: 15px;
+}
+.gifts-container .category-card .gifts-list {
+  padding: 15px 15px 5px;
+  background: #eee;
+  font-size: 10px;
+  color: #666;
+}
+.gifts-container .category-card .gifts-list .gifts-row {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+.gifts-container .category-card .gifts-list .gifts-row:after {
+  clear: both;
+  display: table;
+  content: '';
+}
+.gifts-container .category-card .gifts-list .gifts-row .gifts-column {
+  width: 25%;
+  padding-left: 5px;
+  padding-right: 5px;
+  float: left;
+}
+.gifts-container .category-card .gifts-list .gifts-item {
+  margin-bottom: 10px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.gifts-container .category-card .gifts-list .gifts-item .gift-image {
+  width: 100%;
+  margin-bottom: 10px;
+  padding-bottom: 100%;
+  background-size: cover;
+}
+.gifts-container .category-card .gifts-list .gifts-item .gift-text {
+  text-align: center;
+  padding-bottom: 10px;
+}
+.gifts-container .category-card .gifts-list .gifts-item .gift-text .gift-price {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #eee;
+  font-size: 11px;
+}
+@-moz-keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes breathe {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes breathe {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-o-keyframes breathe {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes breathe {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-moz-keyframes wiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(-70deg);
+  }
+  20% {
+    transform: rotate(-20deg);
+  }
+  35% {
+    transform: rotate(-50deg);
+  }
+  40% {
+    transform: rotate(-30deg);
+  }
+  55% {
+    transform: rotate(-50deg);
+  }
+  60% {
+    transform: rotate(-30deg);
+  }
+  70% {
+    transform: rotate(-50deg);
+  }
+  75% {
+    transform: rotate(-30deg);
+  }
+  85% {
+    transform: rotate(-40deg);
+  }
+  95% {
+    transform: rotate(20deg);
+  }
+  97% {
+    transform: rotate(-30deg);
+  }
+  98% {
+    transform: rotate(15deg);
+  }
+  99% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@-webkit-keyframes wiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(-70deg);
+  }
+  20% {
+    transform: rotate(-20deg);
+  }
+  35% {
+    transform: rotate(-50deg);
+  }
+  40% {
+    transform: rotate(-30deg);
+  }
+  55% {
+    transform: rotate(-50deg);
+  }
+  60% {
+    transform: rotate(-30deg);
+  }
+  70% {
+    transform: rotate(-50deg);
+  }
+  75% {
+    transform: rotate(-30deg);
+  }
+  85% {
+    transform: rotate(-40deg);
+  }
+  95% {
+    transform: rotate(20deg);
+  }
+  97% {
+    transform: rotate(-30deg);
+  }
+  98% {
+    transform: rotate(15deg);
+  }
+  99% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@-o-keyframes wiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(-70deg);
+  }
+  20% {
+    transform: rotate(-20deg);
+  }
+  35% {
+    transform: rotate(-50deg);
+  }
+  40% {
+    transform: rotate(-30deg);
+  }
+  55% {
+    transform: rotate(-50deg);
+  }
+  60% {
+    transform: rotate(-30deg);
+  }
+  70% {
+    transform: rotate(-50deg);
+  }
+  75% {
+    transform: rotate(-30deg);
+  }
+  85% {
+    transform: rotate(-40deg);
+  }
+  95% {
+    transform: rotate(20deg);
+  }
+  97% {
+    transform: rotate(-30deg);
+  }
+  98% {
+    transform: rotate(15deg);
+  }
+  99% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes wiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(-70deg);
+  }
+  20% {
+    transform: rotate(-20deg);
+  }
+  35% {
+    transform: rotate(-50deg);
+  }
+  40% {
+    transform: rotate(-30deg);
+  }
+  55% {
+    transform: rotate(-50deg);
+  }
+  60% {
+    transform: rotate(-30deg);
+  }
+  70% {
+    transform: rotate(-50deg);
+  }
+  75% {
+    transform: rotate(-30deg);
+  }
+  85% {
+    transform: rotate(-40deg);
+  }
+  95% {
+    transform: rotate(20deg);
+  }
+  97% {
+    transform: rotate(-30deg);
+  }
+  98% {
+    transform: rotate(15deg);
+  }
+  99% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
